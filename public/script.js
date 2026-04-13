@@ -94,6 +94,16 @@ function toggleDarkMode() {
     document.documentElement.classList.contains("dark"),
   );
 }
+function toggleSidebar() {
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("sidebarOverlay");
+
+  sidebar.classList.toggle("-translate-x-full");
+
+  if (overlay) {
+    overlay.classList.toggle("hidden");
+  }
+}
 
 function switchView(view) {
   document

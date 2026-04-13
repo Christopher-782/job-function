@@ -384,14 +384,29 @@
 
     <!-- Main App -->
     <div id="app" class="hidden min-h-screen flex">
+      <!-- Sidebar Overlay (Only visible on mobile when sidebar is open) -->
+      <div
+        id="sidebarOverlay"
+        onclick="toggleSidebar()"
+        class="fixed inset-0 bg-black/50 backdrop-blur-sm z-20 hidden lg:hidden"
+      ></div>
       <!-- Sidebar -->
       <aside
         id="sidebar"
         class="fixed left-0 top-0 h-full w-72 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-30 flex flex-col"
       >
+        <!-- Sidebar Header -->
         <div
-          class="p-6 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-brand-green/5 to-brand-orange/5"
+          class="p-6 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-brand-green/5 to-brand-orange/5 relative"
         >
+          <!-- Mobile Close Button (Hidden on Desktop) -->
+          <button
+            onclick="toggleSidebar()"
+            class="lg:hidden absolute right-4 top-6 text-gray-500 hover:text-brand-orange transition-colors"
+          >
+            <i class="fas fa-times text-xl"></i>
+          </button>
+
           <div class="flex items-center gap-3">
             <div
               class="w-10 h-10 bg-gradient-to-br from-brand-green to-brand-orange rounded-xl flex items-center justify-center shadow-lg"
@@ -406,77 +421,110 @@
             </div>
           </div>
         </div>
+
+        <!-- Navigation Links -->
         <nav class="flex-1 p-4 space-y-1 overflow-y-auto">
           <button
-            onclick="switchView('dashboard')"
+            onclick="
+              switchView('dashboard');
+              if (window.innerWidth < 1024) toggleSidebar();
+            "
             id="nav-dashboard"
             class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-brand-green/10 transition-all"
           >
-            <i class="fas fa-chart-line w-5 text-gray-400"></i
-            ><span>Dashboard</span>
+            <i class="fas fa-chart-line w-5 text-gray-400"></i>
+            <span>Dashboard</span>
           </button>
+
           <button
-            onclick="switchView('orders')"
+            onclick="
+              switchView('orders');
+              if (window.innerWidth < 1024) toggleSidebar();
+            "
             id="nav-orders"
             class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-brand-green/10 transition-all"
           >
-            <i class="fas fa-shopping-cart w-5 text-gray-400"></i
-            ><span>Orders</span
-            ><span
+            <i class="fas fa-shopping-cart w-5 text-gray-400"></i>
+            <span>Orders</span>
+            <span
               id="ordersBadge"
               class="ml-auto bg-brand-orange text-white text-xs px-2 py-0.5 rounded-full hidden"
               >0</span
             >
           </button>
+
           <button
-            onclick="switchView('approvals')"
+            onclick="
+              switchView('approvals');
+              if (window.innerWidth < 1024) toggleSidebar();
+            "
             id="nav-approvals"
             class="nav-item admin-only hidden w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-brand-orange/10 transition-all"
           >
-            <i class="fas fa-check-double w-5 text-gray-400"></i
-            ><span>Approvals</span
-            ><span
+            <i class="fas fa-check-double w-5 text-gray-400"></i>
+            <span>Approvals</span>
+            <span
               id="approvalsBadge"
               class="ml-auto bg-red-500 text-white text-xs px-2 py-0.5 rounded-full hidden"
               >0</span
             >
           </button>
+
           <button
-            onclick="switchView('requests')"
+            onclick="
+              switchView('requests');
+              if (window.innerWidth < 1024) toggleSidebar();
+            "
             id="nav-requests"
             class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-brand-green/10 transition-all"
           >
-            <i class="fas fa-clipboard-list w-5 text-gray-400"></i
-            ><span>Requests</span
-            ><span
+            <i class="fas fa-clipboard-list w-5 text-gray-400"></i>
+            <span>Requests</span>
+            <span
               id="requestsBadge"
               class="ml-auto bg-brand-orange text-white text-xs px-2 py-0.5 rounded-full hidden"
               >0</span
             >
           </button>
+
           <button
-            onclick="switchView('vendors')"
+            onclick="
+              switchView('vendors');
+              if (window.innerWidth < 1024) toggleSidebar();
+            "
             id="nav-vendors"
             class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-brand-green/10 transition-all"
           >
-            <i class="fas fa-truck w-5 text-gray-400"></i><span>Vendors</span>
+            <i class="fas fa-truck w-5 text-gray-400"></i>
+            <span>Vendors</span>
           </button>
+
           <button
-            onclick="switchView('analytics')"
+            onclick="
+              switchView('analytics');
+              if (window.innerWidth < 1024) toggleSidebar();
+            "
             id="nav-analytics"
             class="nav-item admin-only hidden w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-brand-orange/10 transition-all"
           >
-            <i class="fas fa-chart-pie w-5 text-gray-400"></i
-            ><span>Analytics</span>
+            <i class="fas fa-chart-pie w-5 text-gray-400"></i>
+            <span>Analytics</span>
           </button>
+
           <button
-            onclick="switchView('settings')"
+            onclick="
+              switchView('settings');
+              if (window.innerWidth < 1024) toggleSidebar();
+            "
             id="nav-settings"
             class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-100 transition-all"
           >
-            <i class="fas fa-cog w-5 text-gray-400"></i><span>Settings</span>
+            <i class="fas fa-cog w-5 text-gray-400"></i>
+            <span>Settings</span>
           </button>
         </nav>
+
+        <!-- User Profile Section -->
         <div class="p-4 border-t border-gray-200 dark:border-gray-700">
           <div class="flex items-center gap-3">
             <div
@@ -501,14 +549,13 @@
             </div>
             <button
               onclick="logout()"
-              class="p-2 text-gray-400 hover:text-red-500"
+              class="p-2 text-gray-400 hover:text-red-500 transition-colors"
             >
               <i class="fas fa-sign-out-alt"></i>
             </button>
           </div>
         </div>
       </aside>
-
       <!-- Main Content -->
       <main class="lg:ml-72 flex-1 min-h-screen bg-gray-50 dark:bg-gray-900">
         <header
