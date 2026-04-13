@@ -22,9 +22,9 @@ async function createUser() {
     console.log("Connected to MongoDB");
 
     // User details - you can modify these
-    const userEmail = "glory@sambethel.com";
-    const userName = "Glory O";
-    const userPassword = "Clement12@56";
+    const userEmail = "bisola@sambethel.com";
+    const userName = "Bisola K";
+    const userPassword = "Dopemu123";
 
     // Check if user already exists
     const existingUser = await User.findOne({ email: userEmail });
