@@ -17,7 +17,7 @@ router.get("/loadvendors", authMiddleware, async (req, res) => {
 });
 
 // Create vendor (admin only)
-router.post("/vendors", authMiddleware, adminMiddleware, async (req, res) => {
+router.post("/vendors", authMiddleware, async (req, res) => {
   try {
     const { name, email, phone, address } = req.body;
 
