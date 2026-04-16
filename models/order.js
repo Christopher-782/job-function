@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-// Inline Counter Schema (no separate file needed)
+// Inline Counter Schema
 const counterSchema = new mongoose.Schema({
   _id: { type: String, required: true },
   seq: { type: Number, default: 0 },
@@ -47,25 +47,21 @@ const orderSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-// FIXED: Atomic counter
-orderSchema.pre("save", async function (next) {
+// FIXED: Removed next() + updated deprecated option
+orderSchema.pre("save", async function () {
   if (!this.orderId) {
     const year = new Date().getFullYear();
 
-    try {
-      const counter = await Counter.findByIdAndUpdate(
-        `order_${year}`,
-        { $inc: { seq: 1 } },
-        { new: true, upsert: true },
-      );
+    const counter = await Counter.findByIdAndUpdate(
+      `order_${year}`,
+      { $inc: { seq: 1 } },
+      {
+        returnDocument: "after",
+        upsert: true,
+      },
+    );
 
-      this.orderId = `ORD-${year}-${String(counter.seq).padStart(4, "0")}`;
-      next();
-    } catch (error) {
-      next(error);
-    }
-  } else {
-    next();
+    this.orderId = `ORD-${year}-${String(counter.seq).padStart(4, "0")}`;
   }
 });
 
